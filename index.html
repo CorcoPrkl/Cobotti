@@ -7,21 +7,24 @@
   </head>
   
 <body>
-
+<table id="quotes">
  <script>            
             window.onload = function() {
                 // Create mediaplayer object
                 var jqxhr = $.get( "/api", function(data) {
                                         // TODO: show initial playlist
                 var quotes = data.quotes;
-
                     for(var id in quotes){
-					document.createElement("td");
+					var temp = document.createElement("td");
+					temp.id = quotes.id
+					temp.value = quotes.id+ ":\t "  +  quotes.quote;
+					var tr = document.createElement("tr");
+					quotes.appendChild(tr);	
+					quotes.appendChild(temp);
                     }                                    
                 });                
                 };
         </script>
-<table>
 	</table>
 	</body>
 	</html>

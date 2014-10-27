@@ -16,8 +16,8 @@
                 var quotes = data.quotes;
                     for(var id in quotes){
 					var temp = document.createElement("td");
-					temp.id = quotes.id
-					temp.value = quotes.id+ ":\t "  +  quotes.quote;
+					temp.id = quotes[id].id
+					temp.value = quotes[id].id+ ":\t "  +  quotes[id].quote;
 					var tr = document.createElement("tr");
 					tabl1.appendChild(tr);	
 					tabl1.appendChild(temp);

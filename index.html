@@ -14,7 +14,7 @@
                 var jqxhr = $.get( "/api", function(data) {                 
 					var quotes = data.quotes;
                     for(var i in quotes){
-					var temp = document.createElement("td");
+					var temp = document.createElement("p");
 					temp.id = quotes[i].id
 					temp.value = quotes[i].id+ ":\t "  +  quotes[i].quote;
 					var tr = document.createElement("tr");

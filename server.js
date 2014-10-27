@@ -21,7 +21,7 @@ app.use(express.static(__dirname + '/'));
 app.listen(process.env.OPENSHIFT_NODEJS_PORT, process.env.OPENSHIFT_NODEJS_IP);
 
 app.get('/api', function(req, res) {    
-	mysqlconn.query('SELECT * FROM quotes;', function(err, rows, fields) {  
+	mysqlconn.query('SELECT * FROM cobotti.*;', function(err, rows, fields) {  
     res.json({ quotes: rows});
   });
   });
@@ -85,7 +85,7 @@ if (rows.affectedRows == 0) bot.say(to, "Quote '"+subMessage[1]+"' not found!");
 }
 
 if (subMessage[0] == "!help") {
-bot.say(to, "!def NAME to read a quote, !defadd NAME QUOTE to add a new one, !defrem NAME to remove a quote. Have fun!");
+bot.say(to, "!def NAME to read a quote, !defadd NAME QUOTE to add a new one, !defrem NAME to remove a quote. !list for a list of all quotes. Have fun!");
 }
 
 if (subMessage[0] == "!list") {

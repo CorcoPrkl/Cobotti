@@ -20,9 +20,9 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/'));
 app.listen(process.env.OPENSHIFT_NODEJS_PORT, process.env.OPENSHIFT_NODEJS_IP);
 
-app.get('/api', function(req, res) {
+app.get('api/', function(req, res) {
     
-	connection.query('SELECT * FROM quotes;', function(err, rows, fields) {  
+	mysqlconn.query('SELECT * FROM quotes;', function(err, rows, fields) {  
     res.json({ quotes: rows});
   });
   });

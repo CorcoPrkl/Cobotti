@@ -29,7 +29,7 @@ app.get('/api', function(req, res) {
 
 
 var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
-    channels: ['#ircbot-testi'],//, '#ludns13', '#jumala 667'],
+    channels: ['#ircbot-testi', '#ludns13', '#jumala 667'],
     port: 6667,
     debug: true,
 	autoConnect: true,

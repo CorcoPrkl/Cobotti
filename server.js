@@ -20,8 +20,9 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/'));
 app.listen(process.env.OPENSHIFT_NODEJS_PORT, process.env.OPENSHIFT_NODEJS_IP);
 
-app.get('/api', function(req, res) {    
-	mysqlconn.query('SELECT * FROM cobotti.*;', function(err, rows, fields) {  
+app.get('/api', function(req, res) {
+	var querystr = 'SELECT * FROM quotes;';
+	mysqlconn.query(querystr, function(err, rows, fields) {  
     res.json({ quotes: rows});
   });
   });

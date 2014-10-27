@@ -9,14 +9,13 @@
 <body>
 <table id="tabl1">
  <script type="text/javascript">            
-            window.onload = function() {
-                // Create mediaplayer object
+            window.onload = function() {               
                 var jqxhr = $.get( "/api", function(data) {                 
 					var quotes = data.quotes;
                     for(var i in quotes){
 					var temp = document.createElement("td");
 					temp.id = quotes[i].id
-					temp.innerText = quotes[i].id+ ":\t "  +  quotes[i].quote;
+					temp.textContent = quotes[i].id+ ":\t "  +  quotes[i].quote;
 					var tr = document.createElement("tr");
 					tabl1.appendChild(tr);	
 					tabl1.appendChild(temp);

@@ -7,18 +7,21 @@
   </head>
   
 <body>
-<table id="tabl1">
+<table id="tabl1" border="1">
+<th><td>Name</td><td>Quote</td></th>
  <script type="text/javascript">            
             window.onload = function() {               
                 var jqxhr = $.get( "/api", function(data) {                 
 					var quotes = data.quotes;
                     for(var i in quotes){
 					var temp = document.createElement("td");
-					temp.id = quotes[i].id
-					temp.textContent = quotes[i].id+ ":\t "  +  quotes[i].quote;
+					var temp2 = document.createElement("td");
+					temp.textContent = quotes[i].id;					
+					temp2.textContent = quotes[i].quote;
 					var tr = document.createElement("tr");
 					tabl1.appendChild(tr);	
 					tabl1.appendChild(temp);
+					tabl1.appendChild(temp2);
                     }                                    
                 });                
                 };

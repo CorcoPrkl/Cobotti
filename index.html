@@ -2,27 +2,26 @@
 <html>
 <head>
   <meta charset="utf-8"> 
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   <title>Cobotti-quotelist</title>
   </head>
   
 <body>
-<?php echo "jotain" ?>
-<?php
-	$host = getenv('OPENSHIFT_MYSQL_DB_HOST');
-	$user = getenv('OPENSHIFT_MYSQL_DB_USERNAME');
-	$password = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');
-	$conn = mysql_connect($host,$user,$password);	
-	$query = "SELECT * FROM ircbot.quotes";
-	$result = mysql_query($query);
-	$num=mysql_numrows($result);
-	echo $num;?>
-	<table border="0">
-	
-	<?php 
-	$i=0; while ($i < $num) {$f1=mysql_result($result,$i,"id");$f2=mysql_result($result,$i,"quote");?>
-	<tr><td><?php echo $f1; ?></td>
-	<td><?php echo $f2; ?></td>
-	<?php$i++;} mysql_close($conn);?>
+
+ <script>            
+            window.onload = function() {
+                // Create mediaplayer object
+                var jqxhr = $.get( "data/", function(data) {
+                                        // TODO: show initial playlist
+                var quotes = data.quotes;
+
+                    for(var id in quotes){
+					document.createElement("td");
+                    }                                    
+                });                
+                };
+        </script>
+<table>
 	</table>
 	</body>
 	</html>

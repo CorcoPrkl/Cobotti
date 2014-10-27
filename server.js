@@ -20,6 +20,14 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/'));
 app.listen(process.env.OPENSHIFT_NODEJS_PORT, process.env.OPENSHIFT_NODEJS_IP);
 
+app.get('/api', function(req, res) {
+    
+	connection.query('SELECT * FROM quotes;', function(err, rows, fields) {  
+    res.json({ quotes: rows});
+  });
+  });
+
+
 var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
     channels: ['#ircbot-testi'],//, '#ludns13', '#jumala 667'],
     port: 6667,

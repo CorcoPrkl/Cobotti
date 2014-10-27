@@ -89,7 +89,7 @@ bot.say(to, "!def NAME to read a quote, !defadd NAME QUOTE to add a new one, !de
 }
 
 if (subMessage[0] == "!list") {
-bot.say(to, "http://ircbot-corcoder.rhcloud.com");
+bot.say(to, "http://cobotti-corcoder.rhcloud.com/");
 }
 
 });

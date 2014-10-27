@@ -7,8 +7,8 @@
   </head>
   
 <body>
-<table id="quotes">
- <script>            
+<table id="tabl1">
+ <script type="text/javascript">            
             window.onload = function() {
                 // Create mediaplayer object
                 var jqxhr = $.get( "/api", function(data) {
@@ -19,8 +19,8 @@
 					temp.id = quotes.id
 					temp.value = quotes.id+ ":\t "  +  quotes.quote;
 					var tr = document.createElement("tr");
-					quotes.appendChild(tr);	
-					quotes.appendChild(temp);
+					tabl1.appendChild(tr);	
+					tabl1.appendChild(temp);
                     }                                    
                 });                
                 };

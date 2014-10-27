@@ -14,9 +14,9 @@
                 var jqxhr = $.get( "/api", function(data) {                 
 					var quotes = data.quotes;
                     for(var i in quotes){
-					var temp = document.createElement("p");
+					var temp = document.createElement("td");
 					temp.id = quotes[i].id
-					temp.value = quotes[i].id+ ":\t "  +  quotes[i].quote;
+					temp.innerText = quotes[i].id+ ":\t "  +  quotes[i].quote;
 					var tr = document.createElement("tr");
 					tabl1.appendChild(tr);	
 					tabl1.appendChild(temp);

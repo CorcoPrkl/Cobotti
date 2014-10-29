@@ -39,11 +39,15 @@ var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
 
 bot.addListener('join', function(channel, who) {
 console.log(channel, who + " joined");
-}
+});
 
 bot.addListener('part', function(channel, who) {
 console.log(channel, who + " left");
-}
+});
+
+bot.addListener('ping', function(server) {
+console.log("ping: " + server);
+});
 
 bot.addListener('message', function(from, to, message) {
 

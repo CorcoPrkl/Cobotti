@@ -37,6 +37,14 @@ var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
 	retryDelay: 60000,
 });
 
+bot.addListener('join', function(channel, who) {
+console.log(channel, who + " joined");
+}
+
+bot.addListener('part', function(channel, who) {
+console.log(channel, who + " left");
+}
+
 bot.addListener('message', function(from, to, message) {
 
 var subMessage = message.split(" ");

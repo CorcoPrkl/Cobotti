@@ -28,8 +28,6 @@ app.get('/api', function(req, res) {
   });
   });
 
-do
-{
 //read botname from database  
 var botName;
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
@@ -46,7 +44,7 @@ console.log("Botname: "+botName);
 //read irc-server from database
 var botServer;
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
-mysqlconn.query(querystr, function(err, rows, botServer) {
+mysqlconn.query(querystr, function(err, rows) {
 for (var i in rows)
 {
 if (rows.length > 0) (botServer = rows[i].server);
@@ -55,7 +53,6 @@ else (botServer = "quakenet.org");
 }
 });
 console.log("Server: "+botServer);
-} while (botName== "" && botServer == "");
 
 //create bot
 var bot = new irc.Client(botServer, botName, {

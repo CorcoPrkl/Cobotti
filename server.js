@@ -39,10 +39,11 @@ if (rows.length > 0) {
 botName = rows[i].name;
 botServer = rows[i].server;
 }
-//if database has no botName, use the default name
+//if database has no botname or servername, use the defaults
 else {
 botName = "Cobotti";
 botServer = "quakenet.org";
+}
 }
 //create bot
 var bot = new irc.Client(botServer, botName, {

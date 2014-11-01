@@ -29,12 +29,15 @@ app.get('/api', function(req, res) {
   });
 
 //read botname from database  
-var botName;
+var botName = "";
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
-mysqlconn.query(querystr, function(err, rows, botName) {
-if (rows.length > 0) (botName = rows[0].name);
+mysqlconn.query(querystr, function(err, rows) {
+for (var i in rows)
+{
+if (rows.length > 0) (botName = rows[i].name);
 //if database has no botName, use the default name
-else (botName = "Cobotti");
+else (botName = "Cobotti"+ new Date());
+}
 });
 console.log("Botname: "+botName);
 
@@ -42,9 +45,12 @@ console.log("Botname: "+botName);
 var botServer = "";
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
 mysqlconn.query(querystr, function(err, rows, botServer) {
-if (rows.length > 0) (botServer = rows[0].server);
+for (var i in rows)
+{
+if (rows.length > 0) (botServer = rows[i].server);
 //if database has no server name, use the default quakenet-connection
-else (botServer = "fi.quakenet.org");
+else (botServer = "quakenet.org");
+}
 });
 console.log("Server: "+botServer);
 

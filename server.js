@@ -29,18 +29,19 @@ app.get('/api', function(req, res) {
   });
 
 //read botname from database  
-var botName = "";
+var botName;
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
-mysqlconn.query(querystr, function(err, rows) {
+mysqlconn.query(querystr, function(err, rows, botName) {
 if (rows.length > 0) (botName = rows[0].name);
 //if database has no botName, use the default name
 else (botName = "Cobotti");
 });
 console.log("Botname: "+botName);
+
 //read irc-server from database
 var botServer = "";
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
-mysqlconn.query(querystr, function(err, rows) {
+mysqlconn.query(querystr, function(err, rows, botServer) {
 if (rows.length > 0) (botServer = rows[0].server);
 //if database has no server name, use the default quakenet-connection
 else (botServer = "fi.quakenet.org");

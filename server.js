@@ -89,7 +89,7 @@ if (subMessage[0] == "!defadd") {
 	
 	mysqlconn.query(querystr, function(err, rows) {
 	if (err) throw err;
-	if  (rows.affectedRows > 0) bot.say(to, "Quote added: !def "+subMessage[1]+ ", " +joinedMessage);
+	if  (rows.changedRows > 0) bot.say(to, "Quote added: !def "+subMessage[1]+ ", " +joinedMessage);
 	});
 	}
 	
@@ -109,11 +109,11 @@ if (subMessage[0] == "!channeladd") {
 var querystr = ("INSERT INTO channels(channel) VALUES ('"+subMessage[1]+"') ON DUPLICATE KEY UPDATE channel=channel;");
 mysqlconn.query(querystr, function(err, rows){
 if (err) throw err;
-if (rows.affectedRows > 0) {
+if (rows.changedRows > 0) {
 bot.say(to, "Channel '"+subMessage[1]+"' added! Joining now");
 bot.join(subMessage[1]);
 }
-if (rows.affectedRows == 0) bot.say(to, "Channel '"+subMessage[1]+"' already on the list!");
+if (rows.changedRows == 0) bot.say(to, "Channel '"+subMessage[1]+"' already on the list!");
 });
 }
 
@@ -130,7 +130,7 @@ if (rows.affectedRows == 0) bot.say(to, "Channel '"+subMessage[1]+"' not found!"
 }
 
 if (subMessage[0] == "!help") {
-bot.say(to, "!def NAME to read a quote, !defadd NAME QUOTE to add a new one, !defrem NAME to remove a quote. !list for a list of all quotes. Have fun!");
+bot.say(to, "!def NAME to read a quote, !defadd NAME QUOTE to add a new one, !defrem NAME to remove a quote. !list for a list of all quotes. !channeladd #CHANNEL to join a new channel, !channelrem #CHANNEL to leave. Have fun!");
 }
 
 if (subMessage[0] == "!list") {

@@ -137,4 +137,8 @@ if (subMessage[0] == "!list") {
 bot.say(to, "http://cobotti-corcoder.rhcloud.com/");
 }
 
+if (subMessage[0] == "!source") {
+bot.say(to, "https://github.com/CorcoPrkl/Cobotti");
+}
+
 });

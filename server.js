@@ -36,7 +36,7 @@ if (rows.length > 0) (botName = rows[0].name);
 //if database has no botName, use the default name
 else (botName = "Cobotti");
 });
-
+console.log("Botname: "+botName);
 //read irc-server from database
 var botServer = "";
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
@@ -45,6 +45,7 @@ if (rows.length > 0) (botServer = rows[0].server);
 //if database has no server name, use the default quakenet-connection
 else (botServer = "fi.quakenet.org");
 });
+console.log("Server: "+botServer);
 
 //create bot
 var bot = new irc.Client(botServer, botName, {

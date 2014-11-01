@@ -26,10 +26,16 @@ app.get('/api', function(req, res) {
     res.json({ quotes: rows});
   });
   });
-
-
+var ircChannels[] = "";
+var querystr = ("SELECT * FROM channels;");
+mysqlconn.query(querystr, function(err, rows) {
+for (var i in rows) {
+ircChannels += i+",";
+}
+}
+  
 var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
-    channels: ['#ircbot-testi', '#ludns13', '#jumala 667'],
+    channels: [ircChannels],
     port: 6667,
     debug: true,
 	autoConnect: true,

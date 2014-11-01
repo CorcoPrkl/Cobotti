@@ -29,21 +29,19 @@ app.get('/api', function(req, res) {
   });
   
 //read botname and server from database
-GLOBAL.botName = "";
-GLOBAL.botServer = "";
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
 mysqlconn.query(querystr, function(err, rows) {
 
 for (var i in rows)
 {
 if (rows.length > 0) {
-botName = rows[i].name;
-botServer = rows[i].server;
+GLOBAL.botName = rows[i].name;
+GLOBAL.botServer = rows[i].server;
 }
 //if database has no botname or servername, use the defaults
 else {
-botName = "Cobotti";
-botServer = "quakenet.org";
+GLOBAL.botName = "Cobotti";
+GLOBAL.botServer = "quakenet.org";
 }
 }
 });

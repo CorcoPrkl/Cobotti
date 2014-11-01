@@ -27,7 +27,7 @@ app.get('/api', function(req, res) {
   });
   });
 
-varircChannels = [];
+var ircChannels = [];
 var querystr = 'SELECT * FROM channels;';
 mysqlconn.query(querystr, function(err, rows, fields) {
 if (rows.length == 0) (console.log("nyt perkele"));

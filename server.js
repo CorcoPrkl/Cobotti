@@ -28,32 +28,22 @@ app.get('/api', function(req, res) {
   });
   });
 
-//read botname from database  
+//read botname and server from database
+var querystr = 'SELECT * FROM botdata LIMIT 1;';
+mysqlconn.query(querystr, function(err, rows) {
 var botName;
-var querystr = 'SELECT * FROM botdata LIMIT 1;';
-mysqlconn.query(querystr, function(err, rows) {
-for (var i in rows)
-{
-if (rows.length > 0) (botName = rows[i].name);
-//if database has no botName, use the default name
-else (botName = "Cobotti"+ new Date());
-}
-}),botName;
-console.log("Botname: "+botName);
-
-//read irc-server from database
 var botServer;
-var querystr = 'SELECT * FROM botdata LIMIT 1;';
-mysqlconn.query(querystr, function(err, rows) {
 for (var i in rows)
 {
-if (rows.length > 0) (botServer = rows[i].server);
-//if database has no server name, use the default quakenet-connection
-else (botServer = "quakenet.org");
+if (rows.length > 0) {
+botName = rows[i].name;
+botServer = rows[i].server;
 }
-}),botServer;
-console.log("Server: "+botServer);
-
+//if database has no botName, use the default name
+else {
+botName = "Cobotti";
+botServer = "quakenet.org";
+}
 //create bot
 var bot = new irc.Client(botServer, botName, {
 	channels: [],
@@ -63,6 +53,11 @@ var bot = new irc.Client(botServer, botName, {
 	floodProtection: true,
 	retryDelay: 60000,
 });
+});
+
+//log the name and server
+console.log("Botname: "+botName);
+console.log("Server: "+botServer);
 
 //join channels once connected
 bot.addListener('registered', function(message) {

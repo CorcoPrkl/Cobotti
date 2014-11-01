@@ -36,16 +36,17 @@ ircChannels[i] = ("'"+rows[i].channel+"'");
 }
 });
 
-//ircChannels.join(" , ");
-
-var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
-    channels: [ircChannels],
+var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {    
     port: 6667,
     debug: true,
 	autoConnect: true,
 	floodProtection: true,
 	retryDelay: 60000,
 });
+
+for (var i=0; i < ircChannels.length;i++) {
+bot.join(ircChannels[i].channel);
+}
 
 bot.addListener('join', function(channel, who) {
 console.log(channel, who + " joined");

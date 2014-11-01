@@ -29,7 +29,7 @@ app.get('/api', function(req, res) {
 
 var ircChannels = "";
 var querystr = 'SELECT * FROM channels;';
-mysqlconn.query(querystr, function(err, rows) {
+mysqlconn.query(querystr, function(err, rows, fields) {
 for (var i in rows) {
 ircChannels += "'"+rows[i].channel+"',";
 }

@@ -44,8 +44,12 @@ var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
 	retryDelay: 60000,
 });
 
+bot.addListener('+mode', function(channel, by, mode, argument) {
+if (argument == "Cobotti") {
 for (var i=0; i < ircChannels.length;i++) {
 bot.join(ircChannels[i]);
+}
+}
 }
 
 bot.addListener('join', function(channel, who) {

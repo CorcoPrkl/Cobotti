@@ -27,9 +27,10 @@ app.get('/api', function(req, res) {
   });
   });
 
-var ircChannels = Array[];
+var ircChannels;
 var querystr = 'SELECT * FROM channels;';
 mysqlconn.query(querystr, function(err, rows, fields) {
+ircChannels =Array[rows];
 for (var i in rows) {
 ircChannels[i] = rows[i].channel;
 }

@@ -36,12 +36,13 @@ var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
 	retryDelay: 60000,
 });
 
-var ircChannels = [];
+bot.addListener('registered', function(message) {
 var querystr = 'SELECT * FROM channels;';
-mysqlconn.query(querystr, function(err, rows, fields, ircChannels) {
+mysqlconn.query(querystr, function(err, rows) {
 for (var i in rows) {
 bot.join(rows[i].channel);
 }
+});
 });
 
 bot.addListener('join', function(channel, who) {

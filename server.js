@@ -26,13 +26,14 @@ app.get('/api', function(req, res) {
     res.json({ quotes: rows});
   });
   });
-var ircChannels = "";
+
+  var ircChannels = "";
 var querystr = ("SELECT channel FROM channels;");
 mysqlconn.query(querystr, function(err, rows) {
 for (var i in rows) {
 ircChannels += i+",";
 }
-}
+});
   
 var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
     channels: [ircChannels],

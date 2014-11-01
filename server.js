@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/'));
 app.listen(process.env.OPENSHIFT_NODEJS_PORT, process.env.OPENSHIFT_NODEJS_IP);
 
+//generate quote-listing for index.html
 app.get('/api', function(req, res) {
 	var querystr = 'SELECT * FROM quotes;';
 	mysqlconn.query(querystr, function(err, rows, fields) {  
@@ -27,7 +28,25 @@ app.get('/api', function(req, res) {
   });
   });
 
-var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
+//read botname from database  
+var botName = "";
+var querystr = 'SELECT name FROM botdata LIMIT 1;';
+mysqlconn.query(querystr, function(err, rows) {
+if (rows.length > 0) botName = rows[0].name;
+//if database has no botName, use the default name
+else (botName = "Cobotti");
+}
+
+//read irc-server from database
+var botServer = "";
+var querystr = 'SELECT server FROM botdata LIMIT 1;';
+mysqlconn.query(querystr, function(err, rows) {
+if (rows.length > 0) botServer = rows[0].server;
+//if database has no server name, use the default quakenet-connection
+else (botServer = "quakenet.org");
+
+//create bot
+var bot = new irc.Client(botServer, botName, {
 	channels: [],
     port: 6667,
     debug: true,
@@ -36,6 +55,7 @@ var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
 	retryDelay: 60000,
 });
 
+//join channels once connected
 bot.addListener('registered', function(message) {
 var querystr = 'SELECT * FROM channels;';
 mysqlconn.query(querystr, function(err, rows) {
@@ -45,6 +65,7 @@ bot.join(rows[i].channel);
 });
 });
 
+//listeners for join/part, ping, atm only for logging
 bot.addListener('join', function(channel, who) {
 console.log(channel, who + " joined");
 });
@@ -57,10 +78,12 @@ bot.addListener('ping', function(server) {
 console.log("ping: " + server);
 });
 
+//listener for channel messages
 bot.addListener('message', function(from, to, message) {
 
 var subMessage = message.split(" ");
 
+//print out requested quote
 if (subMessage[0] == "!def") {
 
 var querystr = ("SELECT * FROM quotes WHERE id = '"+subMessage[1]+"' LIMIT 1;");
@@ -73,6 +96,7 @@ mysqlconn.query(querystr, function(err, rows) {
 	});
 }
 
+//add new quote
 if (subMessage[0] == "!defadd") {
 
 	var querystr = ("SELECT * FROM quotes WHERE id = '"+subMessage[1]+"';");
@@ -95,7 +119,8 @@ if (subMessage[0] == "!defadd") {
 	
 	});
 	}
-	
+
+//remove quote	
 if (subMessage[0] == "!defrem") {
 var querystr = ("DELETE FROM quotes WHERE id = '"+subMessage[1]+"';");
 mysqlconn.query(querystr, function(err, rows){
@@ -105,6 +130,7 @@ if (rows.affectedRows == 0) bot.say(to, "Quote '"+subMessage[1]+"' not found!");
 });
 }
 
+//add new channel in to the database and join the channel
 if (subMessage[0] == "!channeladd") {
 var querystr = ("INSERT INTO channels(channel) VALUES ('"+subMessage[1]+"') ON DUPLICATE KEY UPDATE channel=channel;");
 mysqlconn.query(querystr, function(err, rows){
@@ -117,6 +143,7 @@ if (rows.changedRows == 0) bot.say(to, "Channel '"+subMessage[1]+"' already on t
 });
 }
 
+//remove channel from the database and leave it
 if (subMessage[0] == "!channelrem") {
 var querystr = ("DELETE FROM channels WHERE channel = '"+subMessage[1]+"';");
 mysqlconn.query(querystr, function(err, rows){
@@ -129,14 +156,17 @@ if (rows.affectedRows == 0) bot.say(to, "Channel '"+subMessage[1]+"' not found!"
 });
 }
 
+//print help message
 if (subMessage[0] == "!help") {
-bot.say(to, "!def NAME to read a quote, !defadd NAME QUOTE to add a new one, !defrem NAME to remove a quote. !list for a list of all quotes. !channeladd #CHANNEL to join a new channel, !channelrem #CHANNEL to leave. Have fun!");
+bot.say(to, "!def NAME to read a quote, !defadd NAME QUOTE to add a new one, !defrem NAME to remove a quote. !list for a list of all quotes. !channeladd #CHANNEL to join a new channel, !channelrem #CHANNEL to leave. !source for the github link. Have fun!");
 }
 
+//list all quotes, check index.html
 if (subMessage[0] == "!list") {
 bot.say(to, "http://cobotti-corcoder.rhcloud.com/");
 }
 
+//link to the github
 if (subMessage[0] == "!source") {
 bot.say(to, "https://github.com/CorcoPrkl/Cobotti");
 }

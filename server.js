@@ -29,6 +29,8 @@ app.get('/api', function(req, res) {
   });
   
 //read botname and server from database
+var botName = "";
+var botServer = "";
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
 mysqlconn.query(querystr, function(err, rows, cb) {
 

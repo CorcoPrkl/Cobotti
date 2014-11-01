@@ -114,6 +114,7 @@ bot.say(to, "Channel '"+subMessage[1]+"' added! Joining now");
 bot.join(subMessage[1]);
 }
 if (rows.affectedRows == 0) bot.say(to, "Channel '"+subMessage[1]+"' already on the list!");
+});
 }
 
 if (subMessage[0] == "!channelrem") {

@@ -32,7 +32,7 @@ app.get('/api', function(req, res) {
 var botName = "";
 var botServer = "";
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
-mysqlconn.query(querystr, function(err, rows, cb) {
+mysqlconn.query(querystr, function(err, rows) {
 
 for (var i in rows)
 {
@@ -46,14 +46,12 @@ botName = "Cobotti";
 botServer = "quakenet.org";
 }
 }
-cb(botName,botServer);
-});
 //log the botname and server
 console.log("Botname: "+botName);
 console.log("Server: "+botServer);
 
 //create bot
-var bot = new irc.Client(botServer, botName, {
+GLOBAL.bot = new irc.Client(botServer, botName, {
 	channels: [],
     port: 6667,
     debug: true,
@@ -61,6 +59,8 @@ var bot = new irc.Client(botServer, botName, {
 	floodProtection: true,
 	retryDelay: 60000,
 });
+});
+
 
 //join channels once connected
 bot.addListener('registered', function(message) {

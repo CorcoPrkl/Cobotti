@@ -35,6 +35,10 @@ ircChannels[i] = rows[i].channel;
 }
 });
 
+for (var i=0; i < ircChannels.length;i++) {
+console.log("Channel: "+ ircChannels[i]);
+}
+
 var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
 	channels: [],
     port: 6667,

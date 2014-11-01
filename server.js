@@ -28,6 +28,8 @@ app.get('/api', function(req, res) {
   });
   });
 
+do
+{
 //read botname from database  
 var botName = "";
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
@@ -53,7 +55,7 @@ else (botServer = "quakenet.org");
 }
 });
 console.log("Server: "+botServer);
-
+} while (botName== "" && botServer == "");
 //create bot
 var bot = new irc.Client(botServer, botName, {
 	channels: [],

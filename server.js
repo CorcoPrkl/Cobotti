@@ -27,24 +27,25 @@ app.get('/api', function(req, res) {
     res.json({ quotes: rows});
   });
   });
-  
+var botName;
+var botServer;  
 //read botname and server from database
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
-mysqlconn.query(querystr, function(err, rows) {
+mysqlconn.query(querystr, function(err, rows, botName, botServer) {
 
 for (var i in rows)
 {
 if (rows.length > 0) {
-GLOBAL.botName = rows[i].name;
-GLOBAL.botServer = rows[i].server;
+botName = rows[i].name;
+botServer = rows[i].server;
 }
 //if database has no botname or servername, use the defaults
 else {
-GLOBAL.botName = "Cobotti";
-GLOBAL.botServer = "quakenet.org";
+botName = "Cobotti";
+botServer = "quakenet.org";
 }
 }
-});
+})botName,botServer;
 
 //create bot
 var bot = new irc.Client(botServer, botName, {

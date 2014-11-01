@@ -34,7 +34,7 @@ for (var i in rows) {
 ircChannels += rows[i].channel+",";
 }
 });
-console.log(ircChannels);
+console.log("channels: "+ircChannels);
 
 ircChannels = ircChannels.slice(0,-1);
 var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {

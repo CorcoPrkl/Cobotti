@@ -36,7 +36,7 @@ ircChannels[i] = ("'"+rows[i].channel+"'");
 }
 });
 
-ircChannels.join(" , ");
+//ircChannels.join(" , ");
 
 var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
     channels: [ircChannels],

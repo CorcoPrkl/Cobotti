@@ -31,7 +31,7 @@ app.get('/api', function(req, res) {
 do
 {
 //read botname from database  
-var botName = "";
+var botName;
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
 mysqlconn.query(querystr, function(err, rows) {
 for (var i in rows)
@@ -44,7 +44,7 @@ else (botName = "Cobotti"+ new Date());
 console.log("Botname: "+botName);
 
 //read irc-server from database
-var botServer = "";
+var botServer;
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
 mysqlconn.query(querystr, function(err, rows, botServer) {
 for (var i in rows)
@@ -56,6 +56,7 @@ else (botServer = "quakenet.org");
 });
 console.log("Server: "+botServer);
 } while (botName== "" && botServer == "");
+
 //create bot
 var bot = new irc.Client(botServer, botName, {
 	channels: [],

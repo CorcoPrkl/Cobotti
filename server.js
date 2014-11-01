@@ -47,7 +47,7 @@ botServer = "quakenet.org";
 });
 
 //create bot
-var bot = new irc.Client(botServer, botName, {
+var bot = new irc.Client(botServer || 'fi.quakenet.org', botName || 'Cobotti', {
 	channels: [],
     port: 6667,
     debug: true,

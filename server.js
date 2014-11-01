@@ -27,17 +27,17 @@ app.get('/api', function(req, res) {
   });
   });
 
-var ircChannels = "";
+varircChannels = [];
 var querystr = 'SELECT * FROM channels;';
 mysqlconn.query(querystr, function(err, rows, fields) {
 if (rows.length == 0) (console.log("nyt perkele"));
 else for (var i in rows) {
-ircChannels += ("'"+rows[i].channel+"',");
+ircChannels[i] = "'"+rows[i].channel+"'";
 }
 });
 
-console.log("channels: "+ircChannels);
-ircChannels = ircChannels.slice(0,-1);
+ircChannels.join(" , ");
+
 var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
     channels: [ircChannels],
     port: 6667,

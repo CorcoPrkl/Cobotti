@@ -27,13 +27,15 @@ app.get('/api', function(req, res) {
   });
   });
 
-  var ircChannels = "";
+var ircChannels = "";
 var querystr = ("SELECT channel FROM channels;");
 mysqlconn.query(querystr, function(err, rows) {
 for (var i in rows) {
 ircChannels += rows[i].channel+",";
 }
 });
+console.log(ircChannels);
+
 ircChannels = ircChannels.slice(0,-1);
 var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
     channels: [ircChannels],

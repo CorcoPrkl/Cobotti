@@ -27,8 +27,7 @@ app.get('/api', function(req, res) {
     res.json({ quotes: rows});
   });
   });
-var botName;
-var botServer;  
+  
 //read botname and server from database
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
 mysqlconn.query(querystr, function(err, rows, botName, botServer) {
@@ -39,13 +38,16 @@ if (rows.length > 0) {
 botName = rows[i].name;
 botServer = rows[i].server;
 }
-//if database has no botname or servername, use the defaults
+//if database has no botname or server, use the defaults
 else {
 botName = "Cobotti";
 botServer = "quakenet.org";
 }
 }
 });
+//log the botname and server
+console.log("Botname: "+botName);
+console.log("Server: "+botServer);
 
 //create bot
 var bot = new irc.Client(botServer, botName, {
@@ -56,10 +58,6 @@ var bot = new irc.Client(botServer, botName, {
 	floodProtection: true,
 	retryDelay: 60000,
 });
-
-//log the name and server
-console.log("Botname: "+botName);
-console.log("Server: "+botServer);
 
 //join channels once connected
 bot.addListener('registered', function(message) {

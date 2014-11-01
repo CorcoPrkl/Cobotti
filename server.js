@@ -30,20 +30,20 @@ app.get('/api', function(req, res) {
 
 //read botname from database  
 var botName = "";
-var querystr = 'SELECT name FROM botdata LIMIT 1;';
+var querystr = 'SELECT * FROM botdata LIMIT 1;';
 mysqlconn.query(querystr, function(err, rows) {
-if (rows.length > 0) botName = rows[0].name;
+if (rows.length > 0) (botName = rows[0].name);
 //if database has no botName, use the default name
 else (botName = "Cobotti");
 });
 
 //read irc-server from database
 var botServer = "";
-var querystr = 'SELECT server FROM botdata LIMIT 1;';
+var querystr = 'SELECT * FROM botdata LIMIT 1;';
 mysqlconn.query(querystr, function(err, rows) {
-if (rows.length > 0) botServer = rows[0].server;
+if (rows.length > 0) (botServer = rows[0].server);
 //if database has no server name, use the default quakenet-connection
-else (botServer = "quakenet.org");
+else (botServer = "fi.quakenet.org");
 });
 
 //create bot

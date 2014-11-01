@@ -45,7 +45,7 @@ botName = "Cobotti";
 botServer = "quakenet.org";
 }
 }
-})botName,botServer;
+});
 
 //create bot
 var bot = new irc.Client(botServer, botName, {

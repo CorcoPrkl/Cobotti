@@ -27,12 +27,11 @@ app.get('/api', function(req, res) {
     res.json({ quotes: rows});
   });
   });
-
+  
 //read botname and server from database
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
 mysqlconn.query(querystr, function(err, rows) {
-var botName;
-var botServer;
+
 for (var i in rows)
 {
 if (rows.length > 0) {
@@ -45,6 +44,8 @@ botName = "Cobotti";
 botServer = "quakenet.org";
 }
 }
+});
+
 //create bot
 var bot = new irc.Client(botServer, botName, {
 	channels: [],
@@ -53,7 +54,6 @@ var bot = new irc.Client(botServer, botName, {
 	autoConnect: true,
 	floodProtection: true,
 	retryDelay: 60000,
-});
 });
 
 //log the name and server

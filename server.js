@@ -50,7 +50,7 @@ for (var i=0; i < ircChannels.length;i++) {
 bot.join(ircChannels[i]);
 }
 }
-}
+});
 
 bot.addListener('join', function(channel, who) {
 console.log(channel, who + " joined");

@@ -35,7 +35,7 @@ mysqlconn.query(querystr, function(err, rows) {
 if (rows.length > 0) botName = rows[0].name;
 //if database has no botName, use the default name
 else (botName = "Cobotti");
-}
+});
 
 //read irc-server from database
 var botServer = "";
@@ -44,6 +44,7 @@ mysqlconn.query(querystr, function(err, rows) {
 if (rows.length > 0) botServer = rows[0].server;
 //if database has no server name, use the default quakenet-connection
 else (botServer = "quakenet.org");
+});
 
 //create bot
 var bot = new irc.Client(botServer, botName, {

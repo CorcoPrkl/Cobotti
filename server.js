@@ -38,7 +38,7 @@ if (rows.length > 0) (botName = rows[i].name);
 //if database has no botName, use the default name
 else (botName = "Cobotti"+ new Date());
 }
-});
+}),botName;
 console.log("Botname: "+botName);
 
 //read irc-server from database
@@ -51,7 +51,7 @@ if (rows.length > 0) (botServer = rows[i].server);
 //if database has no server name, use the default quakenet-connection
 else (botServer = "quakenet.org");
 }
-});
+}),botServer;
 console.log("Server: "+botServer);
 
 //create bot

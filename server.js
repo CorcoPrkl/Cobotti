@@ -31,7 +31,7 @@ var ircChannels = "";
 var querystr = ("SELECT * FROM channels;");
 mysqlconn.query(querystr, function(err, rows) {
 for (var i in rows) {
-ircChannels += rows[i].channel+",";
+ircChannels += "'"+rows[i].channel+"',";
 }
 });
 console.log("channels: "+ircChannels);

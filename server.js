@@ -27,7 +27,7 @@ app.get('/api', function(req, res) {
   });
   });
 
-var ircChannels = [];
+var ircChannels = Array[];
 var querystr = 'SELECT * FROM channels;';
 mysqlconn.query(querystr, function(err, rows, fields) {
 for (var i in rows) {
@@ -48,11 +48,9 @@ var bot = new irc.Client('fi.quakenet.org', 'Cobotti', {
 	retryDelay: 60000,
 });
 
-bot.addListener('+mode', function(channel, by, mode, argument) {
-if (argument == "Cobotti") {
+bot.addListener('registered', function(message) {
 for (var i=0; i < ircChannels.length;i++) {
 bot.join(ircChannels[i]);
-}
 }
 });
 

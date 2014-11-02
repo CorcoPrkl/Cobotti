@@ -29,30 +29,27 @@ app.get('/api', function(req, res) {
   });
   
 //read botname and server from database
-var GLOBAL.botName = "";
-var GLOBAL.botServer = "";
-var GLOBAL.bot;
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
 mysqlconn.query(querystr, function(err, rows) {
 
 for (var i in rows)
 {
 if (rows.length > 0) {
-botName = rows[i].name;
-botServer = rows[i].server;
+global.botName = rows[i].name;
+global.botServer = rows[i].server;
 }
 //if database has no botname or server, use the defaults
 else {
-botName = "Cobotti";
-botServer = "quakenet.org";
+global.botName = "Cobotti";
+global.botServer = "quakenet.org";
 }
 }
 //log the botname and server
-console.log("Botname: "+botName);
-console.log("Server: "+botServer);
+console.log("Botname: "+global.botName);
+console.log("Server: "+global.botServer);
 
 //create bot
-    bot = new irc.Client(botServer, botName, {
+    global.bot = new irc.Client(botServer, botName, {
 	channels: [],
     port: 6667,
     debug: true,
@@ -64,30 +61,30 @@ console.log("Server: "+botServer);
 
 
 //join channels once connected
-bot.addListener('registered', function(message) {
+global.bot.addListener('registered', function(message) {
 var querystr = 'SELECT * FROM channels;';
 mysqlconn.query(querystr, function(err, rows) {
 for (var i in rows) {
-bot.join(rows[i].channel);
+global.bot.join(rows[i].channel);
 }
 });
 });
 
 //listeners for join/part, ping, atm only for logging
-bot.addListener('join', function(channel, who) {
+global.bot.addListener('join', function(channel, who) {
 console.log(channel, who + " joined");
 });
 
-bot.addListener('part', function(channel, who) {
+global.bot.addListener('part', function(channel, who) {
 console.log(channel, who + " left");
 });
 
-bot.addListener('ping', function(server) {
+global.bot.addListener('ping', function(server) {
 console.log("ping: " + server);
 });
 
 //listener for channel messages
-bot.addListener('message', function(from, to, message) {
+global.bot.addListener('message', function(from, to, message) {
 
 var subMessage = message.split(" ");
 
@@ -99,7 +96,7 @@ mysqlconn.query(querystr, function(err, rows) {
 	if (err) throw err;
 	if (rows.length == 0) bot.say(to, "Quote '"+subMessage[1]+"' not found");
 	if (rows.length > 0) for (var i in rows) {
-	bot.say(to, rows[i].id+ ": '"+rows[i].quote+"'");	
+	global.bot.say(to, rows[i].id+ ": '"+rows[i].quote+"'");	
 	}
 	});
 }
@@ -109,7 +106,7 @@ if (subMessage[0] == "!defadd") {
 
 	var querystr = ("SELECT * FROM quotes WHERE id = '"+subMessage[1]+"';");
 	mysqlconn.query(querystr, function(err, rows) {
-	if (rows.length > 0) bot.say(to, "Duplicate entry, try 'def! "+subMessage[1]+"'");
+	if (rows.length > 0) global.bot.say(to, "Duplicate entry, try 'def! "+subMessage[1]+"'");
 	else {
 	var joinedMessage = subMessage[2]+" ";
 	for (var i = 3; i < subMessage.length; i++)
@@ -121,7 +118,7 @@ if (subMessage[0] == "!defadd") {
 	
 	mysqlconn.query(querystr, function(err, rows) {
 	if (err) throw err;
-	if  (rows.changedRows > 0) bot.say(to, "Quote added: !def "+subMessage[1]+ ", " +joinedMessage);
+	if  (rows.changedRows > 0) global.bot.say(to, "Quote added: !def "+subMessage[1]+ ", " +joinedMessage);
 	});
 	}
 	
@@ -133,8 +130,8 @@ if (subMessage[0] == "!defrem") {
 var querystr = ("DELETE FROM quotes WHERE id = '"+subMessage[1]+"';");
 mysqlconn.query(querystr, function(err, rows){
 if (err) throw err;
-if (rows.affectedRows > 0) bot.say(to, "Quote '"+subMessage[1]+"' removed!");
-if (rows.affectedRows == 0) bot.say(to, "Quote '"+subMessage[1]+"' not found!");
+if (rows.affectedRows > 0) global.bot.say(to, "Quote '"+subMessage[1]+"' removed!");
+if (rows.affectedRows == 0) global.bot.say(to, "Quote '"+subMessage[1]+"' not found!");
 });
 }
 

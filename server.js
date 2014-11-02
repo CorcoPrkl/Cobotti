@@ -46,8 +46,8 @@ botServer = "quakenet.org";
 }
 }
 //log the botname and server
-console.log("Botname: "+global.botName);
-console.log("Server: "+global.botServer);
+console.log("Botname: "botName);
+console.log("Server: "botServer);
 callBack(botName, botServer);
 });
 }
@@ -61,8 +61,7 @@ callBack(botName, botServer);
 	autoConnect: true,
 	floodProtection: true,
 	retryDelay: 60000,	
-	});	
-});
+	});
 
 //join channels once connected
 bot.addListener('registered', function(message) {
@@ -181,4 +180,5 @@ if (subMessage[0] == "!source") {
 bot.say(to, "https://github.com/CorcoPrkl/Cobotti");
 }
 
+});
 });

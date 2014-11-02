@@ -69,7 +69,7 @@ bot.addListener('registered', function(message) {
 var querystr = 'SELECT * FROM channels;';
 mysqlconn.query(querystr, function(err, rows) {
 for (var i in rows) {
-global.bot.join(rows[i].channel);
+bot.join(rows[i].channel);
 }
 });
 });
@@ -101,7 +101,7 @@ mysqlconn.query(querystr, function(err, rows) {
 	if (err) throw err;
 	if (rows.length == 0) bot.say(to, "Quote '"+subMessage[1]+"' not found");
 	if (rows.length > 0) for (var i in rows) {
-	global.bot.say(to, rows[i].id+ ": '"+rows[i].quote+"'");	
+	bot.say(to, rows[i].id+ ": '"+rows[i].quote+"'");	
 	}
 	});
 }

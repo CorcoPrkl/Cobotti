@@ -52,7 +52,7 @@ console.log("Server: "+global.botServer);
 //create bot, wait until the asynchronous function of the above database query is ready
 setTimeout(function ()
 {   
-    var bot = new irc.Client(global.botServer, global.botName, {
+    bot = new irc.Client(global.botServer, global.botName, {
 	channels: [],
     port: 6667,
     debug: true,

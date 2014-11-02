@@ -59,7 +59,6 @@ setTimeout(function () {
 	floodProtection: true,
 	retryDelay: 60000,
 });
-},10000);
 
 //join channels once connected
 bot.addListener('registered', function(message) {
@@ -178,3 +177,5 @@ bot.say(to, "https://github.com/CorcoPrkl/Cobotti");
 }
 
 });
+
+},10000);

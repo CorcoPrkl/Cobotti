@@ -47,9 +47,10 @@ global.botServer = "quakenet.org";
 //log the botname and server
 console.log("Botname: "+global.botName);
 console.log("Server: "+global.botServer);
+});
 
 //create bot
-    global.bot = new irc.Client(botServer, botName, {
+    var bot = new irc.Client(global.botServer, global.botName, {
 	channels: [],
     port: 6667,
     debug: true,
@@ -57,9 +58,6 @@ console.log("Server: "+global.botServer);
 	floodProtection: true,
 	retryDelay: 60000,
 });
-});
-
-var bot = global.bot;
 
 //join channels once connected
 bot.addListener('registered', function(message) {
@@ -107,7 +105,7 @@ if (subMessage[0] == "!defadd") {
 
 	var querystr = ("SELECT * FROM quotes WHERE id = '"+subMessage[1]+"';");
 	mysqlconn.query(querystr, function(err, rows) {
-	if (rows.length > 0) global.bot.say(to, "Duplicate entry, try 'def! "+subMessage[1]+"'");
+	if (rows.length > 0) bot.say(to, "Duplicate entry, try 'def! "+subMessage[1]+"'");
 	else {
 	var joinedMessage = subMessage[2]+" ";
 	for (var i = 3; i < subMessage.length; i++)
@@ -119,7 +117,7 @@ if (subMessage[0] == "!defadd") {
 	
 	mysqlconn.query(querystr, function(err, rows) {
 	if (err) throw err;
-	if  (rows.changedRows > 0) global.bot.say(to, "Quote added: !def "+subMessage[1]+ ", " +joinedMessage);
+	if  (rows.changedRows > 0) bot.say(to, "Quote added: !def "+subMessage[1]+ ", " +joinedMessage);
 	});
 	}
 	
@@ -131,8 +129,8 @@ if (subMessage[0] == "!defrem") {
 var querystr = ("DELETE FROM quotes WHERE id = '"+subMessage[1]+"';");
 mysqlconn.query(querystr, function(err, rows){
 if (err) throw err;
-if (rows.affectedRows > 0) global.bot.say(to, "Quote '"+subMessage[1]+"' removed!");
-if (rows.affectedRows == 0) global.bot.say(to, "Quote '"+subMessage[1]+"' not found!");
+if (rows.affectedRows > 0) bot.say(to, "Quote '"+subMessage[1]+"' removed!");
+if (rows.affectedRows == 0) bot.say(to, "Quote '"+subMessage[1]+"' not found!");
 });
 }
 

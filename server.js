@@ -52,7 +52,7 @@ callBack(botName, botServer);
 });
 }
 
-//create bot, using the above function
+//create bot, using the above function for the name and server
 	readBotData(function(name,server) {
     bot = new irc.Client(server, name, {
 	channels: [],
@@ -61,7 +61,8 @@ callBack(botName, botServer);
 	autoConnect: true,
 	floodProtection: true,
 	retryDelay: 60000,	
-	}
+	}	
+});
 
 //join channels once connected
 bot.addListener('registered', function(message) {
@@ -180,5 +181,4 @@ if (subMessage[0] == "!source") {
 bot.say(to, "https://github.com/CorcoPrkl/Cobotti");
 }
 
-});
 });

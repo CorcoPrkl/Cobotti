@@ -49,9 +49,9 @@ console.log("Botname: "+global.botName);
 console.log("Server: "+global.botServer);
 });
 
-do {
-//create bot, loop until the asynchronous function is ready
-    var bot = new irc.Client(global.botServer, global.botName, {
+//create bot, wait until the asynchronous function of the above database query is ready
+setTimeout(function () {   
+	var bot = new irc.Client(global.botServer, global.botName, {
 	channels: [],
     port: 6667,
     debug: true,
@@ -59,7 +59,7 @@ do {
 	floodProtection: true,
 	retryDelay: 60000,
 });
-} while (typeof global.botName == 'undefined' && typeof global.botServer == 'undefined');
+},10000);
 
 //join channels once connected
 bot.addListener('registered', function(message) {

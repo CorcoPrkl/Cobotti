@@ -31,6 +31,7 @@ app.get('/api', function(req, res) {
 //read botname and server from database
 var GLOBAL.botName = "";
 var GLOBAL.botServer = "";
+var GLOBAL.bot;
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
 mysqlconn.query(querystr, function(err, rows) {
 
@@ -51,7 +52,7 @@ console.log("Botname: "+botName);
 console.log("Server: "+botServer);
 
 //create bot
-var GLOBAL.bot = new irc.Client(botServer, botName, {
+    bot = new irc.Client(botServer, botName, {
 	channels: [],
     port: 6667,
     debug: true,

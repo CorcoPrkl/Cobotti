@@ -27,45 +27,42 @@ app.get('/api', function(req, res) {
     res.json({ quotes: rows});
   });
   });
-  
 //read botname and server from database
+function readBotData(callBack)
+{
 var querystr = 'SELECT * FROM botdata LIMIT 1;';
 mysqlconn.query(querystr, function(err, rows) {
 
 for (var i in rows)
 {
 if (rows.length > 0) {
-global.botName = rows[i].name;
-global.botServer = rows[i].server;
+botName = rows[i].name;
+botServer = rows[i].server;
 }
 //if database has no botname or server, use the defaults
 else {
-global.botName = "Cobotti";
-global.botServer = "quakenet.org";
+botName = "Cobotti";
+botServer = "quakenet.org";
 }
 }
 //log the botname and server
 console.log("Botname: "+global.botName);
 console.log("Server: "+global.botServer);
+callBack(botName, botServer);
 });
+}
 
-//create bot, wait until the asynchronous function of the above database query is ready
-setTimeout(function ()
-{   
-    bot = new irc.Client(global.botServer, global.botName, {
+//create bot, using the above function
+	readBotData(function(name,server) {
+    bot = new irc.Client(server, name, {
 	channels: [],
     port: 6667,
     debug: true,
 	autoConnect: true,
 	floodProtection: true,
-	retryDelay: 60000,
-});
+	retryDelay: 60000,	
+	}
 
-},10000);
-
-//create listeners, once the bot is created
-setTimeout(function () 
-{
 //join channels once connected
 bot.addListener('registered', function(message) {
 var querystr = 'SELECT * FROM channels;';
@@ -76,6 +73,7 @@ global.bot.join(rows[i].channel);
 });
 });
 
+//create listeners, once the bot is created
 //listeners for join/part, ping, atm only for logging
 bot.addListener('join', function(channel, who) {
 console.log(channel, who + " joined");
@@ -183,5 +181,4 @@ bot.say(to, "https://github.com/CorcoPrkl/Cobotti");
 }
 
 });
-
-},20000);
+});

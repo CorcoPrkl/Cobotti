@@ -50,8 +50,9 @@ console.log("Server: "+global.botServer);
 });
 
 //create bot, wait until the asynchronous function of the above database query is ready
-setTimeout(function () {   
-	var bot = new irc.Client(global.botServer, global.botName, {
+setTimeout(function ()
+{   
+    var bot = new irc.Client(global.botServer, global.botName, {
 	channels: [],
     port: 6667,
     debug: true,
@@ -60,6 +61,11 @@ setTimeout(function () {
 	retryDelay: 60000,
 });
 
+},10000);
+
+//create listeners, once the bot is created
+setTimeout(function () 
+{
 //join channels once connected
 bot.addListener('registered', function(message) {
 var querystr = 'SELECT * FROM channels;';
@@ -178,4 +184,4 @@ bot.say(to, "https://github.com/CorcoPrkl/Cobotti");
 
 });
 
-},10000);
+},20000);

@@ -27,6 +27,7 @@ app.get('/api', function(req, res) {
     res.json({ quotes: rows});
   });
   });
+  
 //read botname and server from database
 function readBotData(callBack)
 {
@@ -46,8 +47,8 @@ botServer = "quakenet.org";
 }
 }
 //log the botname and server
-console.log("Botname: "botName);
-console.log("Server: "botServer);
+console.log("Botname: "+botName);
+console.log("Server: "+botServer);
 callBack(botName, botServer);
 });
 }

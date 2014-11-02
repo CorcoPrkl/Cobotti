@@ -61,7 +61,7 @@ callBack(botName, botServer);
 	autoConnect: true,
 	floodProtection: true,
 	retryDelay: 60000,	
-	}	
+	});	
 });
 
 //join channels once connected

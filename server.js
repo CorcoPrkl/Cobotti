@@ -59,9 +59,10 @@ console.log("Server: "+global.botServer);
 });
 });
 
+var bot = global.bot;
 
 //join channels once connected
-global.bot.addListener('registered', function(message) {
+bot.addListener('registered', function(message) {
 var querystr = 'SELECT * FROM channels;';
 mysqlconn.query(querystr, function(err, rows) {
 for (var i in rows) {
@@ -71,20 +72,20 @@ global.bot.join(rows[i].channel);
 });
 
 //listeners for join/part, ping, atm only for logging
-global.bot.addListener('join', function(channel, who) {
+bot.addListener('join', function(channel, who) {
 console.log(channel, who + " joined");
 });
 
-global.bot.addListener('part', function(channel, who) {
+bot.addListener('part', function(channel, who) {
 console.log(channel, who + " left");
 });
 
-global.bot.addListener('ping', function(server) {
+bot.addListener('ping', function(server) {
 console.log("ping: " + server);
 });
 
 //listener for channel messages
-global.bot.addListener('message', function(from, to, message) {
+bot.addListener('message', function(from, to, message) {
 
 var subMessage = message.split(" ");
 

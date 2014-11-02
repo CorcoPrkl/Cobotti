@@ -173,12 +173,12 @@ bot.say(to, "!def NAME to read a quote, !defadd NAME QUOTE to add a new one, !de
 
 //list all quotes, check index.html
 if (subMessage[0] == "!list") {
-bot.say(to, "http://cobotti-corcoder.rhcloud.com/");
+bot.say(to, process.env.OPENSHIFT_APP_DNS);
 }
 
 //link to the github
 if (subMessage[0] == "!source") {
-bot.say(to, "https://github.com/CorcoPrkl/Cobotti");
+bot.say(to, "Cobotti github can be found at: https://github.com/CorcoPrkl/Cobotti");
 }
 
 });

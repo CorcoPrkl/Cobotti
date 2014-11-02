@@ -48,7 +48,7 @@ global.botServer = "quakenet.org";
 console.log("Botname: "+global.botName);
 console.log("Server: "+global.botServer);
 });
-
+do {
 //create bot
     var bot = new irc.Client(global.botServer, global.botName, {
 	channels: [],
@@ -58,6 +58,7 @@ console.log("Server: "+global.botServer);
 	floodProtection: true,
 	retryDelay: 60000,
 });
+} while (global.botName == UNDEFINED && global.botServer == UNDEFINED);
 
 //join channels once connected
 bot.addListener('registered', function(message) {

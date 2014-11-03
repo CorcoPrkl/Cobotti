@@ -57,7 +57,6 @@ callBack(botName, botServer);
 	readBotData(function(name,server) {
     bot = new irc.Client(server, name, {
 	channels: [],
-	connection: keep-alive,
     port: 6667,
     debug: true,
 	autoConnect: true,
@@ -85,8 +84,12 @@ bot.addListener('part', function(channel, who) {
 console.log(channel, who + " left");
 });
 
+//keepalive hackjob to prevent the app from shutting down because of inactivity after 48 hours
 bot.addListener('ping', function(server) {
-console.log("ping: " + server);
+var querystr = ("SELECT * FROM quotes;");
+mysqlconn.query(querystr, function(err, rows) {
+console.log("Quotes stored: "+rows.count);
+}
 });
 
 //listener for channel messages

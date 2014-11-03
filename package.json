@@ -1,22 +1,21 @@
 {
-  "name": "OpenShift-Sample-App",
+  "name": "Cobotti nodejs ircbot",
   "version": "1.0.0",
-  "description": "OpenShift Sample Application",
+  "description": "simple nodejs ircbot for storing quotes, urls, etc, running on Openshift.",
   "keywords": [
     "OpenShift",
     "Node.js",
     "application",
-    "openshift"
+    "openshift",
+	"node-irc"
   ],
   "author": {
-    "name": "OpenShift",
-    "email": "ramr@example.org",
-    "url": "http://www.openshift.com/"
+    "name": "Corco"
   },
-  "homepage": "http://www.openshift.com/",
+  "homepage": "http://cobotti-corcoder.rhcloud.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/openshift/origin-server"
+    "url": "https://github.com/CorcoPrkl/Cobotti"
   },
   "engines": {
     "node": ">= 0.6.0",

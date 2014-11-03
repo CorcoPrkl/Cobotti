@@ -88,7 +88,7 @@ console.log(channel, who + " left");
 bot.addListener('ping', function(server) {
 var querystr = ("SELECT * FROM quotes;");
 mysqlconn.query(querystr, function(err, rows) {
-console.log("Quotes stored: "+rows.count);
+console.log("Quotes stored: "+rows.length);
 });
 });
 

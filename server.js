@@ -57,6 +57,7 @@ callBack(botName, botServer);
 	readBotData(function(name,server) {
     bot = new irc.Client(server, name, {
 	channels: [],
+	connection: keep-alive,
     port: 6667,
     debug: true,
 	autoConnect: true,

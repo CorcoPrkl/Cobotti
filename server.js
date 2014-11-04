@@ -84,14 +84,6 @@ bot.addListener('part', function(channel, who) {
 console.log(channel, who + " left");
 });
 
-//keepalive hackjob to prevent the app from shutting down because of inactivity after 48 hours
-bot.addListener('ping', function(server) {
-var querystr = ("SELECT * FROM quotes;");
-mysqlconn.query(querystr, function(err, rows) {
-console.log("Quotes stored: "+rows.length);
-});
-});
-
 //listener for channel messages
 bot.addListener('message', function(from, to, message) {
 

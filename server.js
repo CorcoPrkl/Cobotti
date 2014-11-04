@@ -120,7 +120,7 @@ if (subMessage[0] == "!defadd") {
 	
 	mysqlconn.query(querystr, function(err, rows) {
 	if (err) throw err;
-	if  (rows.changedRows > 0) bot.say(to, "Quote added: !def "+subMessage[1]+ ", " +joinedMessage);
+	if  (rows.affectedRows > 0) bot.say(to, "Quote added: !def "+subMessage[1]+ ", " +joinedMessage);
 	});
 	}
 	

@@ -75,7 +75,7 @@ bot.join(rows[i].channel);
 });
 
 //create listeners, once the bot is created
-//listeners for join/part, ping, atm only for logging
+//listeners for join/part, atm only for logging
 bot.addListener('join', function(channel, who) {
 console.log(channel, who + " joined");
 });
@@ -84,7 +84,8 @@ bot.addListener('part', function(channel, who) {
 console.log(channel, who + " left");
 });
 
-//listener for channel messages
+//listener for channel messages, holds the main logic for the bot commands
+//also functions with private messages
 bot.addListener('message', function(from, to, message) {
 
 var subMessage = message.split(" ");

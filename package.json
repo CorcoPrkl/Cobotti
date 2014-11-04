@@ -1,5 +1,5 @@
 {
-  "name": "Cobotti nodejs ircbot",
+  "name": "cobotti",
   "version": "1.0.0",
   "description": "simple nodejs ircbot for storing quotes, urls, etc, running on Openshift.",
   "keywords": [

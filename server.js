@@ -61,7 +61,7 @@ callBack(botName, botServer);
     debug: true,
 	autoConnect: true,
 	floodProtection: true,
-	retryDelay: 60000,	
+	retryDelay: 60000,	//to prevent throttling from quakenet servers
 	});
 
 //join channels once connected via the 'registered'-event

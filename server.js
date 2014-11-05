@@ -64,7 +64,7 @@ callBack(botName, botServer);
 	retryDelay: 60000,	
 	});
 
-//join channels once connected
+//join channels once connected via the 'registered'-event
 bot.addListener('registered', function(message) {
 var querystr = 'SELECT * FROM channels;';
 mysqlconn.query(querystr, function(err, rows) {
@@ -74,7 +74,7 @@ bot.join(rows[i].channel);
 });
 });
 
-//create listeners, once the bot is created
+//create other listeners, once the bot is created
 //listeners for join/part, atm only for logging
 bot.addListener('join', function(channel, who) {
 console.log(channel, who + " joined");
@@ -142,11 +142,11 @@ if (subMessage[0] == "!channeladd") {
 var querystr = ("INSERT INTO channels(channel) VALUES ('"+subMessage[1]+"') ON DUPLICATE KEY UPDATE channel=channel;");
 mysqlconn.query(querystr, function(err, rows){
 if (err) throw err;
-if (rows.changedRows > 0) {
+if (rows.affectedRows > 0) {
 bot.say(to, "Channel '"+subMessage[1]+"' added! Joining now");
 bot.join(subMessage[1]);
 }
-if (rows.changedRows == 0) bot.say(to, "Channel '"+subMessage[1]+"' already on the list!");
+if (rows.affectedRows == 0) bot.say(to, "Channel '"+subMessage[1]+"' already on the list!");
 });
 }
 

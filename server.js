@@ -28,6 +28,8 @@ app.get('/api', function(req, res) {
   });
   });
   
+app.use('/css', express.static(__dirname + '/css'));
+  
 //read botname and server from database
 function readBotData(callBack)
 {

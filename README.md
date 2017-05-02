@@ -1,4 +1,4 @@
-Cobotti ircbot:
+# Cobotti ircbot
 
 requires openshift nodejs-app with mysql to run. Currently supports adding/removing and listing quotes and has a dynamic channel list that can be updated during runtime.
 
